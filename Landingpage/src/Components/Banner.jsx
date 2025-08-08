@@ -1,6 +1,7 @@
 import React from 'react';
 import shieldImage from '../assets/images/temple.jpg'; 
 import { VscGraphLine } from "react-icons/vsc";
+import { ChartSpline } from 'lucide-react';
 
 
 function Banner() {
@@ -23,18 +24,19 @@ function Banner() {
         <div className=" gap-4 m grid grid-rows-3 mt-8">
           <div className="bg-orange-400 text-white p-4 rounded-lg w-60 h-25 ">
             <p className="text-xs">Number of Visitors</p>
-            <p className="text-2xl font-bold">150</p>
+            <p className="text-3xl font-bold">150</p>
             <VscGraphLine className='w-10 h-10 flex mx-20 '/>  
            
             
           </div>
           <div className="bg-gray-200 text-black p-4 rounded-lg w-60 mx-40 relative z-20 -top-10 shadow-2xl">
             <p className="text-xs">Number of Visitors</p>
-            <p className="text-2xl font-bold">14</p>
+            <p className="text-3xl font-bold">14</p>
+            <ChartSpline color='blue' size={30} className='relative left-40'/>
           </div>
           <div className="bg-gray-300 text-black p-4 rounded-lg w-60 relative z-20 -top-20 shadow-2xl">
             <p className="text-xs">Avg Time in Queue</p>
-            <p className="text-2xl font-bold">3min</p>
+            <p className="text-3xl font-bold">3min</p>
           </div>
         </div>
       </div>

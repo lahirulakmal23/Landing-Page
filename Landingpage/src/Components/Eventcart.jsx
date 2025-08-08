@@ -17,11 +17,11 @@ function Eventcart() {
 
   return (
     <div className="px-6 md:px-10 py-10  relative z-20 -top-20">
-      <div className="flex flex-wrap justify-center gap-6 ">
+      <div className="flex flex-wrap justify-center gap-6">
         {events.map((event, index) => (
           <div
             key={index}
-            className="bg-gradient-to-t from-[white] to-[#dbd9d9] rounded-md shadow-lg w-50   p-4 flex flex-col items-center transform transition hover:scale-105"
+            className="bg-gradient-to-t from-[white] to-[#dbd9d9]  rounded-md shadow-lg w-50   p-4 flex flex-col items-center transform transition relative  hover:scale-105"
           >
             <img
               src={event.image}
