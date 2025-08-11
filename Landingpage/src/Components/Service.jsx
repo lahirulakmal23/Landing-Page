@@ -9,22 +9,22 @@ function Service() {
     {
       title: 'Seamless Access for event',
       icon: icon1,
-      desc: 'You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free.',
+      desc: 'Generate unique entry QR codes instantly for attendees, enabling quick and secure check-ins without delays.',
     },
     {
       title: 'Fast QR checking',
       icon: icon2,
-      desc: 'You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free.',
+      desc: 'Generate unique entry QR codes instantly for attendees, enabling quick and secure check-ins without delays.',
     },
     {
       title: 'Live parking Info',
       icon: icon3,
-      desc: 'You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free.',
+      desc: 'Monitor available parking spaces in real time, guiding visitors to free slots and reducing congestion.',
     },
     {
       title: 'Lost & Found Help',
       icon: icon4,
-      desc: 'You can pay a ticket in 2 portions throughout a fixed period of time. Start invoicing for free.',
+      desc: 'Report lost or found items instantly, making it easier for attendees to reconnect with their belongings.',
     },
   ];
 

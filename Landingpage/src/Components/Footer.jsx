@@ -20,9 +20,9 @@ function Footer() {
           <h3 className="text-lg font-semibold mb-4 text-orange-400">Quick Links</h3>
           <ul className="space-y-2 text-sm text-gray-300">
             <li><a href="#" className="hover:text-orange-400">Home</a></li>
-            <li><a href="#" className="hover:text-orange-400">Features</a></li>
-            <li><a href="#" className="hover:text-orange-400">Pricing</a></li>
-            <li><a href="#" className="hover:text-orange-400">Contact</a></li>
+            <li><a href="#" className="hover:text-orange-400">Event </a></li>
+            <li><a href="#" className="hover:text-orange-400">Service </a></li>
+            <li><a href="#" className="hover:text-orange-400">Contact-us</a></li>
           </ul>
         </div>
 
