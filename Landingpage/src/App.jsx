@@ -4,7 +4,8 @@ import Header from './Components/Header'
 import Eventcart from './Components/Eventcart'
 import Service from './Components/Service'
 import Banner from './Components/Banner'
-import Footer from './Components/footer'
+import Footer from './Components/Footer'
+
 
 function App() {
   return (

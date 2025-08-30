@@ -3,6 +3,7 @@ import facebook from '../assets/images/facebook.png';
 import twitter from '../assets/images/twitter.png';
 import instagram from '../assets/images/insta2.png';
 import gmail from '../assets/images/gm.png';
+import logo from '../assets/images/logo.jpg';
 
 function Footer() {
   return (
@@ -14,6 +15,7 @@ function Footer() {
           <h1 className="text-2xl font-bold mb-4">
             <span className="text-orange-400">Crowd</span>Flow
           </h1>
+          <img src={logo} className='w-16 h-12 rounded-md mb-4'/>
           <p className="text-sm text-gray-300 opacity-70">
             Delivering real-time insights while maintaining privacy and full GDPR compliance. 
             Trusted by organizations for smart visitor analytics.
