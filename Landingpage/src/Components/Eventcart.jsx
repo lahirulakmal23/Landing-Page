@@ -14,6 +14,7 @@ function Eventcart() {
     { title: 'Handawaka', image:  handawaka },
     { title: 'nadagama', image: nadagama },
     { title: 'Awareka Ale', image:awarekaAle },
+  
 
   ];
 
@@ -29,7 +30,8 @@ function Eventcart() {
             <img
               src={event.image}
               alt={event.title}
-              className=" border-3 border-gray-50  h-60 w- object-cover rounded-lg mb- z-30 -top-20 relative"
+              className=" border-3    h-60 w- object-cover rounded-lg mb- z-30 -top-20 relative"
+              style={{ borderColor: "#828898" }}
             />
             <h2 className="text-black text-md font-semibold text-center pb-5">
               {event.title}

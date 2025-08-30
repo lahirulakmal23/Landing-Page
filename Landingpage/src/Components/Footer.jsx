@@ -66,7 +66,7 @@ function Footer() {
       </div>
 
       {/* Policies Links */}
-      <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+      <div className="mt-10 flex flex-wrap px-22 gap-6 text-sm text-gray-300">
         <a href="/terms" className="hover:text-orange-400">Terms & Conditions</a>
         <a href="/privacy" className="hover:text-orange-400">Privacy Policy</a>
         <a href="/cookies" className="hover:text-orange-400">Cookies Policy</a>
