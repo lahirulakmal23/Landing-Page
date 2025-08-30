@@ -1,4 +1,8 @@
 import React from 'react';
+import facebook from '../assets/images/facebook.png';
+import twitter from '../assets/images/twitter.png';
+import instagram from '../assets/images/insta2.png';
+import gmail from '../assets/images/gm.png';
 
 function Footer() {
   return (
@@ -11,7 +15,8 @@ function Footer() {
             <span className="text-orange-400">Crowd</span>Flow
           </h1>
           <p className="text-sm text-gray-300 opacity-70">
-            Delivering real-time insights while maintaining privacy and full GDPR compliance. Trusted by organizations for smart visitor analytics.
+            Delivering real-time insights while maintaining privacy and full GDPR compliance. 
+            Trusted by organizations for smart visitor analytics.
           </p>
         </div>
 
@@ -19,10 +24,10 @@ function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-4 text-orange-400">Quick Links</h3>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li><a href="#" className="hover:text-orange-400">Home</a></li>
-            <li><a href="#" className="hover:text-orange-400">Event </a></li>
-            <li><a href="#" className="hover:text-orange-400">Service </a></li>
-            <li><a href="#" className="hover:text-orange-400">Contact-us</a></li>
+            <li><a href="/" className="hover:text-orange-400">Home</a></li>
+            <li><a href="/events" className="hover:text-orange-400">Event</a></li>
+            <li><a href="/services" className="hover:text-orange-400">Service</a></li>
+            <li><a href="/contact" className="hover:text-orange-400">Contact Us</a></li>
           </ul>
         </div>
 
@@ -35,18 +40,41 @@ function Footer() {
             <li>Address: 1234 Insight Lane, Smart City</li>
           </ul>
         </div>
-         <div>
-          <h3 className="text-lg font-semibold mb-4 text-orange-400">Contact</h3>
-          <ul className="space-y-2 text-sm text-gray-300">
-            <li>Email: info@crowdflow.com</li>
-            <li>Phone: +1 234 567 890</li>
-            <li>Address: 1234 Insight Lane, Smart City</li>
-          </ul>
+
+        {/* Social Media */}
+        <div>
+          <h3 className="text-lg font-semibold mb-4 text-orange-400">Follow Us</h3>
+          <div className="flex gap-4 items-center">
+            <a href="#" 
+               className="bg-white w-10 h-10 rounded-md flex items-center justify-center">
+              <img src={facebook} alt="Facebook" className="w-6 h-6"/>
+            </a>
+            <a href="#"  
+               className="bg-white w-10 h-10 rounded-md flex items-center justify-center">
+              <img src={instagram} alt="Instagram" className="w-6 h-6"/>
+            </a>
+            <a href="#" target="_blank" rel="noopener noreferrer" 
+               className="bg-white w-10 h-10 rounded-md flex items-center justify-center">
+              <img src={twitter} alt="Twitter" className="w-6 h-6"/>
+            </a>
+            <a href="#" 
+               className="bg-white w-10 h-10 rounded-md flex items-center justify-center">
+              <img src={gmail} alt="Gmail" className="w-6 h-6"/>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-700 mt-10 pt-6 text-center text-sm text-gray-400">
+      {/* Policies Links */}
+      <div className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-gray-300">
+        <a href="/terms" className="hover:text-orange-400">Terms & Conditions</a>
+        <a href="/privacy" className="hover:text-orange-400">Privacy Policy</a>
+        <a href="/cookies" className="hover:text-orange-400">Cookies Policy</a>
+        <a href="/copyrights" className="hover:text-orange-400">Copyright Notification</a>
+      </div>
+
+      {/* Copyright */}
+      <div className="border-t border-gray-700 mt-5 pt-6 text-center text-sm text-gray-400">
         © {new Date().getFullYear()} CrowdFlow. All rights reserved.
       </div>
     </footer>

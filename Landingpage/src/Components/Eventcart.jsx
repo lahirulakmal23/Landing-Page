@@ -4,6 +4,7 @@ import aluthkalawa from "../assets/images/aluthkalawak.png";
 import handawaka from '../assets/images/handawa.png';
 import nadagama from '../assets/images/Nadagama.png';
 import awarekaAle from '../assets/images/Awareka Ale.png';
+import charikawak from '../assets/images/image.png';
 
 
 function Eventcart() {
@@ -13,22 +14,24 @@ function Eventcart() {
     { title: 'Handawaka', image:  handawaka },
     { title: 'nadagama', image: nadagama },
     { title: 'Awareka Ale', image:awarekaAle },
+
   ];
 
   return (
-    <div className="px-6 md:px-10 py-10  relative z-20 -top-20">
-      <div className="flex flex-wrap justify-center gap-6">
+    <div className=" px-6 md:px-10 py-10  relative z-20 -top-20">
+
+      <div className="flex flex-wrap justify-center gap-6 ">
         {events.map((event, index) => (
           <div
             key={index}
-            className="bg-gradient-to-t from-[white] to-[#dbd9d9]  rounded-md shadow-lg w-50   p-4 flex flex-col items-center transform transition relative  hover:scale-105"
+            className="bg-gradient-to-t from-[white] to-[#dbd9d9]  rounded-md shadow-lg w-55   p-4 flex flex-col items-center transform transition relative  hover:scale-105"
           >
             <img
               src={event.image}
               alt={event.title}
-              className="h-50 w-full object-cover rounded-md mb- z-30 -top-20 relative"
+              className=" border-3 border-gray-50  h-60 w- object-cover rounded-lg mb- z-30 -top-20 relative"
             />
-            <h2 className="text-black text-md font-semibold text-center">
+            <h2 className="text-black text-md font-semibold text-center pb-5">
               {event.title}
             </h2>
           </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import icon1 from '../assets/images/qr1.jpg'; // Replace with actual icons
+import icon1 from '../assets/images/event access.jpg'; // Replace with actual icons
 import icon2 from '../assets/images/qr1.jpg';
 import icon3 from '../assets/images/parking.jpg';
-import icon4 from '../assets/images/qr1.jpg';
+import icon4 from '../assets/images/lost items.jpg';
 
 function Service() {
   const services = [
