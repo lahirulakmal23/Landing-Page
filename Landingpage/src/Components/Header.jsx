@@ -11,6 +11,7 @@ function Header() {
           <a href="#" className="hover:text-gray-300">Event</a>
           <a href="#" className="hover:text-gray-300">Service</a>
           <a href="#" className="hover:text-gray-300">Contact Us</a>
+          <a href="/About.jsx" className="hover:text-gray-300">About Us</a>
         </nav>
         <button className="bg-gray-200 text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-white">
           Get Started
