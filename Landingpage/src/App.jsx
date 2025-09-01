@@ -19,13 +19,12 @@ function App() {
   return (
     <Router>
       <Header /> 
+      <Eventcart />
       <Routes>
         <Route path="/Header" element={<Header />} />
-       
-        <Route path="/Service" element={<ServicePage />} />
+        <Route path="/Service" element={<Service />} />
         <Route path="/About" element={<About />} />
       </Routes>
-      <Eventcart />
       <Banner />
       <Footer />
     </Router>
