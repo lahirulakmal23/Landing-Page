@@ -18,7 +18,9 @@ function Banner() {
           <h2 className="text-4xl font-bold mb-8 ">
             <span className="text-orange-400">CrowdFlow</span> is fully GDPR <br />Compliant
           </h2>
-          <p className="text-md text-gray-300 mt-2 opacity-60">Our platform is designed with privacy and security at its core. CrowdFlow ensures that all personal data is collected, processed, and stored in accordance with GDPR regulations, giving users confidence that their information is handled responsibly and transparently.</p>
+          <p className="text-md text-gray-300 mt-2 opacity-60">Our platform is designed with privacy and security at its core.
+             CrowdFlow ensures that all personal data is collected, processed, and stored in accordance with GDPR regulations, giving users confidence that their 
+             information is handled responsibly and transparently.</p>
         </div>
 
         {/* Cards */}

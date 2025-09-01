@@ -21,10 +21,11 @@ function App() {
       <Header /> 
       <Routes>
         <Route path="/Header" element={<Header />} />
-        <Route path="/Eventcart" element={<Eventcart />} />
+       
         <Route path="/Service" element={<ServicePage />} />
         <Route path="/About" element={<About />} />
       </Routes>
+      <Eventcart />
       <Banner />
       <Footer />
     </Router>
