@@ -7,6 +7,7 @@ export default function Register() {
     fullName: "",
     email: "",
     phone: "",
+    nic:"",
     password: "",
     confirm: "",
     newsletter: true,
@@ -80,14 +81,7 @@ export default function Register() {
             <div className="absolute inset-0 bg-gradient-to-tr from-[#0A0A3C]/80 via-[#0F054C]/60 to-transparent" />
 
             {/* Image collage */}
-            <div className="absolute inset-0 grid grid-cols-6 grid-rows-6 gap-2 p-4">
-              <img className="object-cover w-full h-full rounded-xl col-span-3 row-span-3" src="https://images.unsplash.com/photo-1518600506278-4e8ef466b810?q=80&w=1600&auto=format&fit=crop" alt="crowd" />
-              <img className="object-cover w-full h-full rounded-xl col-span-3 row-span-2" src="https://images.unsplash.com/photo-1508606572321-901ea443707f?q=80&w=1600&auto=format&fit=crop" alt="parking" />
-              <img className="object-cover w-full h-full rounded-xl col-span-2 row-span-2" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop" alt="concert" />
-              <img className="object-cover w-full h-full rounded-xl col-span-2 row-span-2" src="https://images.unsplash.com/photo-1489515217757-5fd1be406fef?q=80&w=1600&auto=format&fit=crop" alt="smile" />
-              <img className="object-cover w-full h-full rounded-xl col-span-2 row-span-2" src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?q=80&w=1600&auto=format&fit=crop" alt="team" />
-            </div>
-
+            
             {/* Copy on top */}
             <div className="relative z-10 p-8 md:p-10 text-white flex h-full flex-col">
               <div className="max-w-sm">
@@ -132,7 +126,9 @@ export default function Register() {
                 <Field label="Phone">
                   <input className="input" type="tel" placeholder="+94 7X XXX XXXX" value={form.phone} onChange={set("phone")} />
                 </Field>
-                
+                <Field label="NIC Number">
+                  <input className="input" type="text" placeholder="e.g., 200045678901" value={form.nic} onChange={set("nic")}/>
+                </Field>  
                 <Field label="Password">
                   <input className="input" type="password" placeholder="••••••••" value={form.password} onChange={set("password")} />
                 </Field>
@@ -140,9 +136,6 @@ export default function Register() {
                   <input className="input" type="password" placeholder="••••••••" value={form.confirm} onChange={set("confirm")} />
                 </Field>
               </div>
-
-              
-
               {/* Call to action */}
               <Link to ='/payment'>
               <button
