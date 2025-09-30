@@ -1,28 +1,36 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import express from "express";
+import mongoose from "mongoose";
+import cors from "cors";
+import dotenv from "dotenv";
 
-
-import attendeeRoutes from './Modules/Register/Routes/reg.Route.js'; // 👈 ADD
+// Routes
+import checkoutRoutes from "./Modules/Register/Route/checkout.route.js";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-const host = '127.0.0.1';
-
 
 app.use(cors());
 app.use(express.json());
 
-// Mongo
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+// Health (optional)
+app.get("/health", (req, res) => res.json({ ok: true }));
 
-// Routes
+// Mount routes
+app.use("/api/checkout", checkoutRoutes);
 
-app.use("/api/attendees", attendeeRoutes); // 👈 ADD (REST: POST /api/attendees)
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/crowdflow";
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+mongoose
+  .connect(MONGO_URI)
+  .then(() => {
+    console.log("MongoDB Connected");
+    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  })
+  .catch((err) => {
+    console.error("MongoDB error:", err.message);
+    process.exit(1);
+  });
+
+  
