@@ -6,7 +6,9 @@ import Service from './Components/Service'
 import Banner from './Components/Banner'
 import Footer from './Components/Footer'
 import About from "./Components/About";
-import Register from "./Components/Register";
+import RegisterPersonal from "./Components/RegisterPersonal";
+import RegisterPayment from "./Components/RegisterPayment";
+
 
 // Dummy pages for now (you can replace with real components later)
 
@@ -24,7 +26,9 @@ function App() {
         <Route path="/Eventcart" element={<Eventcart />} />
         <Route path="/Service" element={<ServicePage />} />
         <Route path="/About" element={<About />} />
-        <Route path="/Register" element={<Register />} />
+        <Route path="/Register" element={<RegisterPersonal />} />
+        <Route path="/Register/Payment" element={<RegisterPayment />} />
+
 
       </Routes>
       <Banner />
