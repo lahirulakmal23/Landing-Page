@@ -13,9 +13,12 @@ function Header() {
           <Link to="/Service" className="hover:text-gray-300">Service</Link>
           <Link to="/About" className="hover:text-gray-300">About Us</Link>
         </nav>
-        <button className="bg-gray-200 text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-white">
-          Get Started
-        </button>
+         <Link
+  to="/Register"
+  className="inline-block bg-gray-200 text-black px-4 py-2 rounded-md text-sm font-medium hover:bg-white"
+>
+  Get Started
+</Link>
       </div>
 
       {/* Hero Text */}
