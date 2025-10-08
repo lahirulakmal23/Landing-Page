@@ -20,27 +20,30 @@ const PaymentSchema = new mongoose.Schema(
   { _id: false }
 );
 
-const TicketSchema = new mongoose.Schema(
-  {
-    nic: {
-      type: String,
-      required: true,
-      uppercase: true,
-      trim: true,
-      validate: { validator: (v) => nicRegex.test(String(v || "")), message: "Invalid NIC format" },
-      index: true,
+const TicketSchema = new mongoose.Schema({
+  fullName: { type: String, required: true },
+  email:    { type: String, required: true, unique: true }, // ✅ unique
+  phone:    { type: String, required: true },
+  nic:      { type: String, required: true, unique: true }, // ✅ unique
+  type:     { type: String, enum: ["individual", "family"], required: true },
+  count:    { type: Number, default: 1 },
+  payment: {
+    provider: String,
+    paymentId: String,
+    status: { type: String, enum: ["paid", "failed", "pending"], required: true },
+    amount: { type: Number, required: true },
+    currency: String,
+    card: {
+      brand: { type: String, required: true },
+      last4: { type: String, required: true },
+      expMonth: { type: Number, required: true },
+      expYear: { type: Number, required: true },
     },
-    fullName: { type: String, required: true, trim: true, minlength: 2, maxlength: 120 },
-    email: { type: String, required: true, trim: true, lowercase: true },
-    phone: { type: String, required: true, trim: true },
-    type: { type: String, enum: ["individual", "family"], required: true },
-    count: { type: Number, required: true, min: 1 },
-    payload: { type: String, required: true },     // what’s encoded
-    qrDataUrl: { type: String, required: true },   // <-- store PNG as data URL
-    payment: { type: PaymentSchema, required: true },
   },
-  { timestamps: true }
-);
+  qrDataUrl: { type: String, required: true },
+  checkedIn: { type: Boolean, default: false },
+}, { timestamps: true });
+
 
 // optional uniqueness for individual (works with upsert)
 TicketSchema.index(

@@ -28,8 +28,6 @@ function App() {
         <Route path="/About" element={<About />} />
         <Route path="/Register" element={<RegisterPersonal />} />
         <Route path="/Register/Payment" element={<RegisterPayment />} />
-
-
       </Routes>
       <Banner />
       <Footer />

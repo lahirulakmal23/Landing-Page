@@ -7,6 +7,10 @@ const nicRegex = /^(?:\d{12}|\d{9}[VvXx])$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const phoneRegex = /^0\d{9}$/;
 
+const BRAND_OPTIONS = ["visa", "mastercard", "debit"];
+const THIS_YEAR = new Date().getFullYear();
+const MIN_EXP_YEAR = Math.max( THIS_YEAR); // never allow past year
+
 export default function RegisterPayment() {
   const nav = useNavigate();
   const { state: personal } = useLocation();
@@ -17,7 +21,7 @@ export default function RegisterPayment() {
   }, [personal, nav]);
 
   const [payment, setPayment] = useState({
-    provider: "stripe",
+   
     status: "paid",
     amount: "",
     currency: "LKR",
@@ -29,26 +33,96 @@ export default function RegisterPayment() {
   const [open, setOpen] = useState(false);
   const [result, setResult] = useState(null);
 
-  const setP = (k) => (e) => setPayment((p) => ({ ...p, [k]: e.target.value }));
-  const setCard = (k) => (e) =>
-    setPayment((p) => ({ ...p, card: { ...p.card, [k]: e.target.value } }));
+  // --- Controlled setters with sanitization ---
+  const setP = (k) => (e) => {
+    let v = e.target.value;
+
+    if (k === "amount") {
+      // digits only, no leading spaces, no letters
+      v = v.replace(/\D/g, "");
+      // optional: cap max length if you want, e.g., 6 digits
+      if (v.length > 7) v = v.slice(0, 7);
+    }
+
+    setPayment((p) => ({ ...p, [k]: v }));
+  };
+
+  const setCard = (k) => (e) => {
+    let v = e.target.value;
+
+    if (k === "last4") {
+      v = v.replace(/\D/g, "").slice(0, 4); // exactly 4 digits
+    }
+
+    if (k === "expMonth") {
+      v = v.replace(/\D/g, "");
+      if (v) {
+        let n = Math.min(12, Math.max(1, Number(v)));
+        v = String(n);
+      }
+    }
+
+    if (k === "expYear") {
+      v = v.replace(/\D/g, "");
+      if (v) {
+        let n = Math.max(MIN_EXP_YEAR, Number(v));
+        v = String(n);
+      }
+    }
+
+    if (k === "brand") {
+      // enforce dropdown options only
+      if (!BRAND_OPTIONS.includes(v)) v = "";
+    }
+
+    setPayment((p) => ({ ...p, card: { ...p.card, [k]: v } }));
+  };
 
   const isFamily = personal?.type === "family";
 
   // Validate step1 + step2 before submit
   const errors = useMemo(() => {
     const e = {};
-    if (!personal?.fullName?.trim()) e.fullName = "Required";
-    if (!emailRegex.test(String(personal?.email || "").toLowerCase())) e.email = "Invalid email";
-    if (!phoneRegex.test(String(personal?.phone || ""))) e.phone = "Use 07XXXXXXXX";
-    if (!nicRegex.test(String(personal?.nic || "").toUpperCase())) e.nic = "NIC invalid";
+
+    // Step-1 recap validation
+    if (!personal?.fullName?.trim()) e.fullName = "Full name required";
+    if (!personal?.email?.trim()) e.email = "Email required";
+    else if (!emailRegex.test(String(personal?.email).toLowerCase())) e.email = "Invalid email";
+    if (!personal?.phone?.trim()) e.phone = "Phone required";
+    else if (!phoneRegex.test(String(personal?.phone))) e.phone = "Phone must be 10 digits (07XXXXXXXX)";
+    if (!personal?.nic?.trim()) e.nic = "NIC required";
+    else if (!nicRegex.test(String(personal?.nic).toUpperCase())) e.nic = "NIC must be 12 digits or 9 + V/X";
     if (!["individual", "family"].includes(personal?.type)) e.type = "Pick category";
     if (isFamily) {
       const c = parseInt(personal?.count, 10);
       if (!Number.isFinite(c) || c < 2) e.count = "Family count must be ≥ 2";
     }
+
+    // Step-2 payment validation
     if (!["paid", "failed", "pending"].includes(payment.status)) e.paymentStatus = "Invalid status";
     if (payment.status !== "paid") e.mustPaid = "Must be 'paid' to generate QR";
+
+    // amount: required, digits only, > 0
+    const amtNum = Number(payment.amount);
+    if (!payment.amount) e.amount = "*";
+    else if (!Number.isFinite(amtNum) || amtNum <= 0) e.amount = "Amount must be a positive number";
+
+    // brand: from dropdown
+    if (!payment.card.brand) e.brand = "*";
+
+    // last4: exactly 4 digits
+    if (!payment.card.last4 || payment.card.last4.length !== 4) e.last4 = "*";
+
+    // exp month: 1..12
+    const m = Number(payment.card.expMonth);
+    if (!payment.card.expMonth) e.expMonth = "*";
+    else if (!Number.isInteger(m) || m < 1 || m > 12) e.expMonth = "Month must be 1–12";
+
+    // exp year: >= 2025 (or current year, whichever is greater)
+    const y = Number(payment.card.expYear);
+    if (!payment.card.expYear) e.expYear = "*";
+    else if (!Number.isInteger(y) || y < MIN_EXP_YEAR) e.expYear = `Year must be ≥ ${MIN_EXP_YEAR}`;
+
     return e;
   }, [personal, isFamily, payment]);
 
@@ -132,10 +206,7 @@ export default function RegisterPayment() {
 
         {/* Two-column layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <Field label="Payment Provider">
-            <input className="input" value={payment.provider} onChange={setP("provider")} placeholder="stripe" />
-          </Field>
-
+         
           <Field label="Payment Status" error={errors.mustPaid || errors.paymentStatus}>
             <select className="input" value={payment.status} onChange={setP("status")}>
               <option value="paid">paid</option>
@@ -144,26 +215,59 @@ export default function RegisterPayment() {
             </select>
           </Field>
 
-          <Field label="Amount (LKR)">
-            <input className="input" type="number" value={payment.amount} onChange={setP("amount")} placeholder="2500" />
+          <Field label="Amount (LKR)" error={errors.amount}>
+            <input
+              className="input"
+              inputMode="numeric"
+              pattern="\d*"
+              value={payment.amount}
+              onChange={setP("amount")}
+              placeholder="2500"
+            />
           </Field>
 
-          <div />{/* spacer to balance rows */}
-
-          <Field label="Card Brand">
-            <input className="input" value={payment.card.brand} onChange={setCard("brand")} placeholder="visa" />
+          
+          {/* Card Brand as dropdown */}
+          <Field label="Card Type" error={errors.brand}>
+            <select className="input" value={payment.card.brand} onChange={setCard("brand")}>
+              <option value="">Select type</option>
+              {BRAND_OPTIONS.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
+            </select>
           </Field>
 
-          <Field label="Card Last 4">
-            <input className="input" value={payment.card.last4} onChange={setCard("last4")} placeholder="4242" />
+          <Field label="Card Last 4" error={errors.last4}>
+            <input
+              className="input"
+              inputMode="numeric"
+              pattern="\d*"
+              value={payment.card.last4}
+              onChange={setCard("last4")}
+              placeholder="4242"
+            />
           </Field>
 
-          <Field label="Exp. Month">
-            <input className="input" type="number" min={1} max={12} value={payment.card.expMonth} onChange={setCard("expMonth")} placeholder="12" />
+          <Field label="Exp. Month" error={errors.expMonth}>
+            <input
+              className="input"
+              inputMode="numeric"
+              pattern="\d*"
+              value={payment.card.expMonth}
+              onChange={setCard("expMonth")}
+              placeholder="12"
+            />
           </Field>
 
-          <Field label="Exp. Year">
-            <input className="input" type="number" min={2024} value={payment.card.expYear} onChange={setCard("expYear")} placeholder="2028" />
+          <Field label={`Exp. Year (≥ ${MIN_EXP_YEAR})`} error={errors.expYear}>
+            <input
+              className="input"
+              inputMode="numeric"
+              pattern="\d*"
+              value={payment.card.expYear}
+              onChange={setCard("expYear")}
+              placeholder={String(MIN_EXP_YEAR)}
+            />
           </Field>
         </div>
 
