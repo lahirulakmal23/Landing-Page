@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 // Routes
 import checkoutRoutes from "./Modules/Register/Route/checkout.route.js";
-import scanRoutes from "./Modules/Register/Route/scan.route.js";
+//import scanRoutes from "./Modules/Register/Route/scan.route.js";
 
 dotenv.config();
 
@@ -20,7 +20,6 @@ app.get("/health", (req, res) => res.json({ ok: true }));
 
 // Mount routes
 app.use("/api/checkout", checkoutRoutes);
-app.use("/api/scan",scanRoutes);
 
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/crowdflow";
 

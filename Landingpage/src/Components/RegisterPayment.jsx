@@ -63,12 +63,19 @@ export default function RegisterPayment() {
     }
 
     if (k === "expYear") {
-      v = v.replace(/\D/g, "");
-      if (v) {
-        let n = Math.max(MIN_EXP_YEAR, Number(v));
-        v = String(n);
-      }
+  v = v.replace(/\D/g, "");
+  if (v) {
+    const num = Number(v);
+    // allow typing freely, only validate later
+    if (num >= MIN_EXP_YEAR && num <= 2100) {
+      v = String(num);
+    } else {
+      // keep user input until blur validation
+      v = v.slice(0, 4);
     }
+  }
+}
+
 
     if (k === "brand") {
       // enforce dropdown options only
